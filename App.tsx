@@ -9,6 +9,10 @@ import WithdrawModal from './components/WithdrawModal';
 import VSLPage from './components/VSLPage';
 import { Video } from './types';
 import { getSuggestedVideos } from './services/geminiService';
+import clickSound from './click.mp3';
+import shakiraAvatar from './img/channels4_profile.jpg';
+import alwaysAvatar from './img/352736150_646586647499958_8602396302428599251_n-1024x1024.jpg';
+import iteroAvatar from './img/channels44_profile.jpg';
 
 const App: React.FC = () => {
   const [darkMode, setDarkMode] = useState<boolean>(false);
@@ -30,6 +34,39 @@ const App: React.FC = () => {
       setIsLoading(true);
       const videos = await getSuggestedVideos();
       if (videos.length > 0) {
+        // Force specific rewards and content
+        if (videos[0]) {
+          videos[0].reward = 36.82;
+          videos[0].title = "Shakira Oral B 3D White Perfection";
+          videos[0].thumbnail = "https://i.imgur.com/vjQE0Zt.jpg";
+          videos[0].videoUrl = "https://i.imgur.com/oifW4EZ.mp4";
+          videos[0].channel = {
+            name: "Shakira",
+            avatar: shakiraAvatar,
+            isVerified: true
+          };
+        }
+        if (videos[1]) {
+          videos[1].reward = 34.20;
+          videos[1].title = "Always Ultra Thin – Sin miedo a las salpicaduras";
+          videos[1].videoUrl = "https://i.imgur.com/TEaZx1H.mp4";
+          videos[1].channel = {
+            name: "Always",
+            avatar: alwaysAvatar,
+            isVerified: true
+          };
+        }
+        if (videos[2]) {
+          videos[2].reward = 34.98;
+          videos[2].title = "Expand Horizonts";
+          videos[2].videoUrl = "https://i.imgur.com/DBKYqxh.mp4";
+          videos[2].channel = {
+            name: "iTero",
+            avatar: iteroAvatar,
+            isVerified: true
+          };
+        }
+
         setCurrentVideo(videos[0]);
         setNextVideos(videos.slice(1));
       }
@@ -53,6 +90,11 @@ const App: React.FC = () => {
 
   const handleRate = useCallback((relevant: boolean) => {
     if (!currentVideo) return;
+
+    if (relevant) {
+      const audio = new Audio(clickSound);
+      audio.play().catch(e => console.error("Error playing sound:", e));
+    }
 
     const reward = currentVideo.reward;
     setLastReward(reward);
@@ -89,9 +131,7 @@ const App: React.FC = () => {
   };
 
   const handleStartTutorial = () => {
-    setIsWithdrawModalOpen(false);
-    setIsVSLActive(true);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.location.href = 'https://trendtodaymedia.com/pv/';
   };
 
   if (isVSLActive) {
@@ -131,7 +171,7 @@ const App: React.FC = () => {
           ))}
           {nextVideos.length === 0 && (
             <div className="p-8 text-center text-gray-500 italic">
-              Generating more rewards for you...
+              Generando más recompensas para ti...
             </div>
           )}
         </div>

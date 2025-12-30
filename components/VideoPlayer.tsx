@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Video } from '../types';
 
@@ -7,6 +6,18 @@ interface VideoPlayerProps {
 }
 
 const VideoPlayer: React.FC<VideoPlayerProps> = ({ video }) => {
+  // Autoplay if videoUrl is present
+  const [isPlaying, setIsPlaying] = React.useState(!!video.videoUrl);
+
+  // Update playing state when video changes
+  React.useEffect(() => {
+    setIsPlaying(!!video.videoUrl);
+  }, [video.id, video.videoUrl]);
+
+  const handlePlay = () => {
+    if (video.videoUrl) setIsPlaying(true);
+  };
+
   return (
     <div className="bg-card-light dark:bg-card-dark rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 overflow-hidden relative group transition-all duration-300">
       {/* Reward Badge */}
@@ -14,21 +25,33 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ video }) => {
         $ {video.reward.toFixed(2)}
       </div>
 
-      {/* Video Thumbnail Area */}
+      {/* Video Content */}
       <div className="relative aspect-video bg-black flex items-center justify-center group cursor-pointer overflow-hidden">
-        <img 
-          alt={video.title} 
-          className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700" 
-          src={video.thumbnail}
-        />
-        <div className="bg-black/60 rounded-full p-4 hover:bg-primary/90 transition-all transform hover:scale-110 z-10">
-          <span className="material-icons-round text-white text-5xl">play_arrow</span>
-        </div>
-        
-        {/* Progress Bar Simulation */}
-        <div className="absolute bottom-0 left-0 w-full h-1 bg-gray-600">
-          <div className="h-full bg-primary w-1/3"></div>
-        </div>
+        {isPlaying && video.videoUrl ? (
+          <video
+            src={video.videoUrl}
+            className="w-full h-full object-contain"
+            controls
+            autoPlay
+            playsInline
+          />
+        ) : (
+          <div onClick={handlePlay} className="w-full h-full relative flex items-center justify-center">
+            <img
+              alt={video.title}
+              className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700"
+              src={video.thumbnail}
+            />
+            <div className="bg-black/60 rounded-full p-4 hover:bg-primary/90 transition-all transform hover:scale-110 z-10">
+              <span className="material-icons-round text-white text-5xl">play_arrow</span>
+            </div>
+
+            {/* Progress Bar Simulation */}
+            <div className="absolute bottom-0 left-0 w-full h-1 bg-gray-600">
+              <div className="h-full bg-primary w-1/3"></div>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Video Info */}
@@ -39,23 +62,23 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ video }) => {
         <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
           {video.views} visualizaciones • {video.timeAgo}
         </p>
-        
+
         <div className="flex items-center justify-between border-t border-gray-100 dark:border-gray-700 pt-4">
           <div className="flex items-center gap-3">
-            <img 
-              alt={video.channel.name} 
-              className="w-10 h-10 rounded-full" 
+            <img
+              alt={video.channel.name}
+              className="w-10 h-10 rounded-full"
               src={video.channel.avatar}
             />
             <div>
               <p className="font-medium text-sm dark:text-gray-200">{video.channel.name}</p>
-              <p className="text-xs text-gray-500 dark:text-gray-400">Official Channel</p>
+              <p className="text-xs text-gray-500 dark:text-gray-400">Canal Oficial</p>
             </div>
           </div>
-          
+
           {video.channel.isVerified && (
             <div className="bg-black dark:bg-white text-white dark:text-black px-3 py-1.5 rounded-full flex items-center gap-1.5 shadow-sm">
-              <span className="text-xs font-bold leading-none">Socio<br/>verificado</span>
+              <span className="text-xs font-bold leading-none">Socio<br />verificado</span>
               <span className="material-icons-round text-blue-500 text-sm">verified</span>
             </div>
           )}

@@ -8,7 +8,7 @@ export const getSuggestedVideos = async (): Promise<Video[]> => {
   try {
     const response = await ai.models.generateContent({
       model: "gemini-3-flash-preview",
-      contents: "Generate 5 interesting YouTube video titles and channel names for a rating app. The titles should be catchy. Return as JSON.",
+      contents: "Genera 5 títulos interesantes de videos de YouTube y nombres de canales para una app de calificación. Los títulos deben ser llamativos y en español. Devuelve solo JSON.",
       config: {
         responseMimeType: "application/json",
         responseSchema: {
@@ -46,13 +46,13 @@ export const getSuggestedVideos = async (): Promise<Video[]> => {
     // Fallback static data
     return Array.from({ length: 5 }).map((_, i) => ({
       id: `fallback-${i}`,
-      title: `Recommended Video ${i + 1}`,
+      title: `Video Recomendado ${i + 1}`,
       views: "100K",
-      timeAgo: "2 days ago",
+      timeAgo: "hace 2 días",
       reward: 5.50,
       thumbnail: `https://picsum.photos/seed/${i}/640/360`,
       channel: {
-        name: "Content Creator",
+        name: "Creador de Contenido",
         avatar: `https://picsum.photos/seed/c${i}/100/100`,
         isVerified: true
       }

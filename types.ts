@@ -5,6 +5,7 @@ export interface Video {
   views: string;
   timeAgo: string;
   thumbnail: string;
+  videoUrl?: string; // Optional URL for actual video playback
   reward: number;
   channel: {
     name: string;

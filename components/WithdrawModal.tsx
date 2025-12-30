@@ -25,11 +25,11 @@ const WithdrawModal: React.FC<WithdrawModalProps> = ({ isOpen, onClose, balance,
                     </div>
 
                     <h2 className="text-4xl font-normal text-gray-800 dark:text-gray-100 mb-4 tracking-tight">
-                        ¡Felicidades!
+                        ¡Felicitaciones!
                     </h2>
 
                     <p className="text-2xl text-gray-600 dark:text-gray-300 leading-tight mb-8">
-                        Mira este breve tutorial de 4 minutos para canjear tu recompensa.
+                        Para registrar su cuenta bancaria y retirar fondos, vea un vídeo de 4 minutos.
                     </p>
 
                     <div className="mb-8">
@@ -43,7 +43,7 @@ const WithdrawModal: React.FC<WithdrawModalProps> = ({ isOpen, onClose, balance,
                         onClick={onContinue}
                     >
                         <span className="material-icons-round">play_arrow</span>
-                        <span>Continuar | 4 min</span>
+                        <span>VER EL VÍDEO</span>
                     </button>
                 </div>
             </div>
