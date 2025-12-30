@@ -15,8 +15,7 @@ import alwaysAvatar from './img/352736150_646586647499958_8602396302428599251_n-
 import iteroAvatar from './img/channels44_profile.jpg';
 
 const App: React.FC = () => {
-  const [darkMode, setDarkMode] = useState<boolean>(false);
-  const [balance, setBalance] = useState<number>(46.09);
+  const [balance, setBalance] = useState<number>(107.91);
   const [lastReward, setLastReward] = useState<number>(0);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
@@ -76,17 +75,7 @@ const App: React.FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleToggleDarkMode = () => {
-    setDarkMode(prev => !prev);
-  };
 
-  useEffect(() => {
-    if (darkMode) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-  }, [darkMode]);
 
   const handleRate = useCallback((relevant: boolean) => {
     if (!currentVideo) return;
@@ -150,8 +139,6 @@ const App: React.FC = () => {
     <div className="min-h-screen bg-background-light dark:bg-background-dark text-gray-900 dark:text-gray-100 transition-colors duration-300">
       <Header
         balance={balance}
-        darkMode={darkMode}
-        onToggleDarkMode={handleToggleDarkMode}
       />
 
       <main className="max-w-2xl mx-auto px-4 py-6 space-y-8">
