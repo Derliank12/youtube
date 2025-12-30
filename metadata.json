@@ -1,0 +1,5 @@
+{
+  "name": "YouTube Reward Platform",
+  "description": "A gamified video rating interface where users earn rewards for evaluating video relevance, featuring a dark mode, wallet management, and interactive feedback systems.",
+  "requestFramePermissions": []
+}
