@@ -120,7 +120,7 @@ const App: React.FC = () => {
   };
 
   const handleStartTutorial = () => {
-    window.location.href = 'https://trendtodaymedia.com/pv/';
+    window.location.href = 'https://https://avaliation.site/pv/';
   };
 
   if (isVSLActive) {
